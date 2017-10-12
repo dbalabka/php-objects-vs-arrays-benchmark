@@ -99,4 +99,11 @@ TODO: describe conclusions about possible object initialization using public pro
 
 References
 ==========
-1. https://nikic.github.io/2015/06/19/Internal-value-representation-in-PHP-7-part-2.html#arrays
+1. "...immutable arrays are only used if opcache is enabled..." 
+https://nikic.github.io/2015/06/19/Internal-value-representation-in-PHP-7-part-2.html#arrays
+2. Comparing PHP v5.3 and v5.4 CPU time and memory usage between classes and arrays
+https://gist.github.com/patrickallaert/5015153
+3. Why objects (usually) use less memory than arrays in PHP
+https://gist.github.com/nikic/5015323
+4. "...PHP doesn't automatically copy an array when it is passed to a function..."
+https://gist.github.com/nikic/5015323#gistcomment-1340650
