@@ -1,0 +1,15 @@
+{
+    "name": "torinaki/objects-vs-arrays-benchmark",
+    "description": "Benchmark that compares object vs array for data with predetermined structure",
+    "type": "project",
+    "require": {
+        "phpbench/phpbench": "^0.13"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Dmitry Balabka",
+            "email": "dmitry.balabka@intexsys.lv"
+        }
+    ]
+}
