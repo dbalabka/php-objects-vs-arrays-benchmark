@@ -107,3 +107,5 @@ https://gist.github.com/patrickallaert/5015153
 https://gist.github.com/nikic/5015323
 4. "...PHP doesn't automatically copy an array when it is passed to a function..."
 https://gist.github.com/nikic/5015323#gistcomment-1340650
+5. Some graphs comparing memory usage of arrays and objects (with declared properties) in PHP 7. Arrays need between 2x and 6x more memory.
+https://twitter.com/nikita_ppv/status/847855830821109760
