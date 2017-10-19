@@ -14,8 +14,8 @@ In many projects we use arrays to manipulate data that we fetch from database. I
 Using arrays lead to different issues that affects application maintainability:
 1. Luck of type hinting that usualy affects code readability and may introduce bugs
 2. Arrays structure may vary that usualy lead to 
-    a. error, because of missing array key
-    b. structure unpredictability and inconsistency
+    * error, because of missing array key
+    * structure unpredictability and inconsistency
 3. Code duplication
 
 Above mentioned cons can be avoided by using objects without significant performance degradation or even improvement. Under performence we understood low utilization of computing resources like memory and CPU time.
