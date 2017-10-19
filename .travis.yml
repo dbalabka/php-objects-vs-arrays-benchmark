@@ -13,6 +13,7 @@ php:
 
 install:
     - composer install --prefer-dist
+    - chmod +x ./bin/php_no_xdebug
 
 script:
     - PATH=$PATH:$(pwd)/bin vendor/bin/phpbench run --report=default --group=array
