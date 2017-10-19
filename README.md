@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/torinaki/php-objects-vs-arrays-benchmark.svg?branch=master)](https://travis-ci.org/torinaki/php-objects-vs-arrays-benchmark)
+
 TL;DR
 ==========
 There no benefit to fetch array instead of objects from database when you use PDO.
