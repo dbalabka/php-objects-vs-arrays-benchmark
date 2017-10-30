@@ -7,6 +7,7 @@ use PhpBench\Benchmark\Metadata\Annotations\BeforeMethods;
 use PhpBench\Benchmark\Metadata\Annotations\AfterMethods;
 use PhpBench\Benchmark\Metadata\Annotations\Groups;
 use PhpBench\Benchmark\Metadata\Annotations\Iterations;
+use PhpBench\Benchmark\Metadata\Annotations\ParamProviders;
 use PhpBench\Benchmark\Metadata\Annotations\Revs;
 use PhpBench\Benchmark\Metadata\Annotations\Sleep;
 use PhpBench\Benchmark\Metadata\Annotations\Warmup;
@@ -20,13 +21,19 @@ require_once __DIR__ . '/ObjectFunc.php';
  * @AfterMethods({"onAfterMethods"})
  * @Iterations(20)
  * @Revs(1)
+ * @Warmup(1)
  * @OutputTimeUnit("milliseconds", precision=5)
  * @Sleep(1000)
  * @Groups({"array"})
  */
 class ObjectVsArrayBench
 {
-    const ITERATIONS_NUM = 10000;
+    public function provideParams()
+    {
+        return [
+            [100000],
+        ];
+    }
 
     public function init()
     {
@@ -36,10 +43,13 @@ class ObjectVsArrayBench
     {
     }
 
-    public function benchArray()
+    /**
+     * @ParamProviders({"provideParams"})
+     */
+    public function benchArray($params)
     {
         $arraysOf = array();
-        for ($i = 0; $i < self::ITERATIONS_NUM; $i++) {
+        for ($i = 0; $i < $params[0]; $i++) {
             $z = [];
             $z['aaa'] = 'aaa';
             $z['bbb'] = 'bbb';
@@ -50,10 +60,13 @@ class ObjectVsArrayBench
         }
     }
 
-    public function benchObject()
+    /**
+     * @ParamProviders({"provideParams"})
+     */
+    public function benchObject($params)
     {
         $arraysOf = array();
-        for ($i = 0; $i < self::ITERATIONS_NUM; $i++) {
+        for ($i = 0; $i < $params[0]; $i++) {
             $z = new ObjectFunc\SomeClass();
             $z->aaa = 'aaa';
             $z->bbb = 'bbb';
@@ -64,10 +77,13 @@ class ObjectVsArrayBench
         }
     }
 
-    public function benchObjectCollection()
+    /**
+     * @ParamProviders({"provideParams"})
+     */
+    public function benchObjectCollection($params)
     {
         $arraysOf = new \ArrayObject(array(), \ArrayObject::STD_PROP_LIST);
-        for ($i = 0; $i < self::ITERATIONS_NUM; $i++) {
+        for ($i = 0; $i < $params[0]; $i++) {
             $z = new ObjectFunc\SomeClass();
             $z->aaa = 'aaa';
             $z->bbb = 'bbb';
@@ -78,10 +94,13 @@ class ObjectVsArrayBench
         }
     }
 
-    public function benchObjectSetters()
+    /**
+     * @ParamProviders({"provideParams"})
+     */
+    public function benchObjectSetters($params)
     {
         $arraysOf = array();
-        for ($i = 0; $i < self::ITERATIONS_NUM; $i++) {
+        for ($i = 0; $i < $params[0]; $i++) {
             $z = new ObjectFunc\SomeClassWithSetters();
             $z->setAaa('aaa');
             $z->setBbb('bbb');
@@ -92,10 +111,13 @@ class ObjectVsArrayBench
         }
     }
 
-    public function benchObjectSettersConstruct()
+    /**
+     * @ParamProviders({"provideParams"})
+     */
+    public function benchObjectSettersConstruct($params)
     {
         $arraysOf = array();
-        for ($i = 0; $i < self::ITERATIONS_NUM; $i++) {
+        for ($i = 0; $i < $params[0]; $i++) {
             $z = new ObjectFunc\SomeClassWithConstructor('aaa', 'bbb', ['ddd']);
             $z->setCcc(ObjectFunc\concatWithSetters($z, $z));
             $arraysOf[] = $z;
