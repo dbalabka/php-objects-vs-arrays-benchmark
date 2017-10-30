@@ -7,6 +7,7 @@ use PhpBench\Benchmark\Metadata\Annotations\BeforeMethods;
 use PhpBench\Benchmark\Metadata\Annotations\AfterMethods;
 use PhpBench\Benchmark\Metadata\Annotations\Groups;
 use PhpBench\Benchmark\Metadata\Annotations\Iterations;
+use PhpBench\Benchmark\Metadata\Annotations\ParamProviders;
 use PhpBench\Benchmark\Metadata\Annotations\Revs;
 use PhpBench\Benchmark\Metadata\Annotations\Sleep;
 use PhpBench\Benchmark\Metadata\Annotations\Warmup;
@@ -20,13 +21,19 @@ require_once __DIR__ . '/ObjectFunc.php';
  * @AfterMethods({"onAfterMethods"})
  * @Iterations(5)
  * @Revs(1)
+ * @Warmup(1)
  * @OutputTimeUnit("milliseconds", precision=5)
  * @Sleep(1000)
  * @Groups({"array2"})
  */
 class ObjectVsArray2Bench
 {
-    const ITERATIONS_NUM = 3000000;
+    public function provideParams()
+    {
+        return [
+            [100000],
+        ];
+    }
 
     public function init()
     {
@@ -36,32 +43,42 @@ class ObjectVsArray2Bench
     {
     }
 
-    public function benchArray()
+    /**
+     * @ParamProviders({"provideParams"})
+     */
+    public function benchArray($params)
     {
         $a = new A();
-        for ($i = 0; $i < self::ITERATIONS_NUM; $i++) {
+        for ($i = 0; $i < $params[0]; $i++) {
             $r = 1; // rand(0, 1);
             $r ? $a->setA($i) : $a->setB($i);
-            // $t = $r ? $a->getA() : $a->getB();
+            $t = $r ? $a->getA() : $a->getB();
         }
     }
 
-    public function benchObject()
+    /**
+     * @ParamProviders({"provideParams"})
+     */
+    public function benchObject($params)
     {
         $b = new B();
-        for ($i = 0; $i < self::ITERATIONS_NUM; $i++) {
+        for ($i = 0; $i < $params[0]; $i++) {
             $r = 1; // rand(0, 1);
             $r ? $b->a = $i : $b->b = $i;
-            // $t = $r ? $a->getA() : $a->getB();
+            $t = $r ? $b->a : $b->b;
         }
     }
 
-    public function benchObjectSetters()
+    /**
+     * @ParamProviders({"provideParams"})
+     */
+    public function benchObjectSetters($params)
     {
-        for ($i = 0; $i < self::ITERATIONS_NUM; $i++) {
+        $a = [1, 2];
+        for ($i = 0; $i < $params[0]; $i++) {
             $r = 1; // rand(0, 1);
             $r ? $a[0] = $i : $a[1] = $i;
-            // $t = $r ? $a[0] : $a[1];
+            $t = $r ? $a[0] : $a[1];
         }
     }
 
